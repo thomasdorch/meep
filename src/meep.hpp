@@ -1742,7 +1742,7 @@ public:
   void require_source_components();
   void _require_component(component c, bool aniso2d);
   void require_component(component c) { _require_component(c, is_aniso2d()); }
-  void add_srcdata(struct sourcedata cur_data, src_time *src, size_t n=0, std::complex<double>* amp_arr=NULL);
+  void add_srcdata(struct sourcedata cur_data, src_time *src, size_t n=0, std::complex<double>* amp_arr=NULL, bool needs_boundary_fix=false);
   void register_src_time(src_time *src);
   src_time *lookup_src_time(size_t id);
 

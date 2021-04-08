@@ -306,7 +306,7 @@ static void src_vol_chunkloop(fields_chunk *fc, int ichunk, component c, ivec is
   fc->sources[ft] = tmp->add_to(fc->sources[ft]);
 }
 
-void fields::add_srcdata(struct sourcedata cur_data, src_time *src, size_t n, std::complex<double>* amp_arr){
+void fields::add_srcdata(struct sourcedata cur_data, src_time *src, size_t n, std::complex<double>* amp_arr, bool needs_boundary_fix){
   if (n == 0) {
       n = cur_data.idx_arr.size();
       assert(amp_arr == NULL);
@@ -322,6 +322,7 @@ void fields::add_srcdata(struct sourcedata cur_data, src_time *src, size_t n, st
   }
   component c = cur_data.near_fd_comp;
   src_vol *tmp = new src_vol(c, src, n, index_arr, amp_arr_copy);
+  tmp->needs_boundary_fix = needs_boundary_fix;
   field_type ft = is_magnetic(c) ? B_stuff : D_stuff;
   if (0 > cur_data.fc_idx or cur_data.fc_idx >= num_chunks) abort("fields chunk index out of range");
   fields_chunk *fc = chunks[cur_data.fc_idx];
